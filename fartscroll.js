@@ -27,8 +27,7 @@ var oggs = [
 (function( $ ) {
   $.fn.fartscroll = function(trigger_distance) {
     trigger_distance = trigger_distance || 400;
-    fart_playing = false;
-
+    
     var player = document.createElement("audio");
     $("body").append(player);
     var audio;
@@ -44,14 +43,10 @@ var oggs = [
     var lastOffset;
     $(this).scroll(function(event) {
         var scrollOffset = Math.floor($(this).scrollTop() / trigger_distance);
-        if (lastOffset !== scrollOffset && !fart_playing) {
+        if (lastOffset !== scrollOffset) {
             var rand = Math.floor(Math.random() * audio.length);
             player.src = prefix + audio[rand];
-			fart_playing = true;
             player.play();
-			player.addEventListener('ended', function () {
-				fart_playing = false;
-			});
             lastOffset = scrollOffset;
         }
     });
